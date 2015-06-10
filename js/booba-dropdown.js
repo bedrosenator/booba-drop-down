@@ -30,9 +30,9 @@ DropDown.prototype.init = function() {
     this.parent.addEventListener('mouseout', this.mouseout.bind(this));
     this.parent.addEventListener('keydown', this.keydown.bind(this));
 };
+
 //keydown processing
 DropDown.prototype.keydown = function(e) {
-    // enter key
     if(e.keyCode === 13) {
         if(e.target !== this.ul) return;
         if(!this.parent.classList.contains('open')) {
@@ -63,8 +63,8 @@ DropDown.prototype.keydown = function(e) {
 
 // shift list down
 DropDown.prototype.shiftDown = function(e) {
-    if(!this.parent.classList.contains('open')) return;
-
+    //if(!this.parent.classList.contains('open')) return;
+//console.log(this.selectedIndex);
     var liElems = this.ul.children;
     var nextElem = liElems[this.selectedIndex].nextElementSibling;
     var listBottom = 0;
@@ -82,6 +82,8 @@ DropDown.prototype.shiftDown = function(e) {
     if(listBottom >= this.ul.offsetHeight) {
         this.ul.scrollTop += liHeight;
     }
+
+    this.setSelection(e);
     //prevent page scroll by arrow down
     e.preventDefault();
 };
@@ -98,12 +100,15 @@ DropDown.prototype.shiftUp = function(e) {
         prevElem.classList.add('selected');
         this.selectedIndex--;
     }
+
     if(!liElems[this.selectedIndex].offsetParent) return;
 
     listTop = liElems[this.selectedIndex].offsetParent.scrollTop - liElems[this.selectedIndex].offsetTop;
     if(listTop > 0) {
         this.ul.scrollTop -= liHeight;
     }
+
+    this.setSelection(e);
     //prevent page scroll by arrow up
     e.preventDefault();
 };
@@ -123,21 +128,24 @@ DropDown.prototype.click = function(e) {
 };
 //clear selected element
 DropDown.prototype.clearSelection = function() {
-    //which variant is better? this?
     var ul = this.ul.querySelector('.selected');
     if(ul) ul.classList.remove('selected');
-    //or that?
+
     /*for(var i = 0; i < this.ul.children.length; i++) {
      if(this.ul.children[i].classList.contains('selected')) this.ul.children[i].classList.remove('selected');
      }*/
 };
 
 //set new value of original select
-DropDown.prototype.setSelectValue = function() {
+DropDown.prototype.setSelectedValue = function() {
     //remove old seleced option
-    this.select.querySelector('option[selected]').removeAttribute('selected');
-    //set new selected option
+    var selectedOptionElem = this.select.querySelector('option[selected]');
+    if(selectedOptionElem) {
+        selectedOptionElem.removeAttribute('selected');
+    }
     this.select.children[this.selectedIndex].setAttribute('selected', 'selected');
+    //set new selected option
+
 };
 
 DropDown.prototype.setSelection = function(e) {
@@ -157,7 +165,7 @@ DropDown.prototype.setSelection = function(e) {
 
     //change title and set value
     this.title.innerHTML = liElem.innerHTML;
-    this.setSelectValue();
+    this.setSelectedValue();
 };
 
 DropDown.prototype.mouseover = function(e) {
