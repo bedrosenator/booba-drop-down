@@ -1,139 +1,353 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/booba-dropdown.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/vanilla-select.css">
 </head>
 <body>
-<!--[if lt IE 8]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
 
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Booba dropdown</a>
-        </div>
-        <div id="navbar" style="display: none" class="navbar-collapse">
-            <form class="navbar-form navbar-right" role="form">
-                <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
-            </form>
-        </div><!--/.navbar-collapse -->
-    </div>
-</nav>
-
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-    <div class="container">
-        <p></p>
-        <p>This is a free pure JS Booba custom select</p>
-        <select>
-            <option>123</option>
-            <option>333</option>
-            <option>222</option>
-        </select>
-    </div>
-</div>
-
-<div class="container">
-    <!-- Example row of columns -->
-    <div class="row">
-        <div class="col-md-12">
-
-
-            <h2>First custom select:</h2>
-            <h3>List of endangered birds in India</h3>
-            <select id="food-select" class="customselect">
-                <option value="white-bellied-heron">White-bellied heron</option>
-                <option value="great-indian-bustard">Great Indian bustard (Ardeotis nigriceps)</option>
-                <option value="forest-owlet">Forest owlet (Athene blewitti)</option>
-                <option value="baers-pochard">Baer's pochard (Aythya baeri)</option>
-                <option value="spoon-billed-sandpiper">Spoon-billed sandpiper (Eurynorhynchus pygmeus)</option>
-                <option value="siberian-crane">Siberian crane</option> (Grus leucogeranus)
-                <option value="white-rumped-vulture">White-rumped vulture (Gyps bengalensis)</option>
-                <option value="indian-vulture">Indian vulture (Gyps indicus)</option>
-                <option value="slender-billed-vulture">Slender-billed vulture (Gyps tenuirostris)</option>
-                <option value="Bengal florican">Bengal florican (Houbaropsis bengalensis)</option>
-                <option value="himalayan-quail">Himalayan quail (Ophrysia superciliosa)</option>
-            </select>
-
-
-            <h2>Second custom select</h2>
-            <h3>List of endangered mammals in India</h3>
-            <select id="food-select-4" class="customselect">
-                <option value="Namdapha_flying_squirrel" title="Namdapha flying squirrel">Namdapha flying squirrel</option>
-                <option value="Himalayan_wolf" title="Himalayan wolf">Himalayan wolf</option>
-                <option value="Andaman_Shrew" title="Andaman Shrew" class="mw-redirect">Andaman Shrew</option>
-                <option value="Jenkins%27_shrew" title="Jenkins' shrew">Jenkins' shrew</option>
-                <option value="Nicobar_shrew" title="Nicobar shrew">Nicobar shrew</option>
-                <option value="Sumatran_rhinoceros" title="Sumatran rhinoceros">Sumatran rhinoceros</option>
-                <option value="Kondana_soft-furred_rat" title="Kondana soft-furred rat">Kondana soft-furred rat</option>
-                <option value="Pygmy_hog" title="Pygmy hog">Pygmy hog</option> (<i>Porcula salvania</i>)</li>
-                <option value="Javan_rhinoceros" title="Javan rhinoceros">Javan rhinoceros</option>
-                <option value="Malabar_large-spotted_civet" title="Malabar large-spotted civet">Malabar large-spotted civet</option>
-                <option value="Elvira_Rat" title="Elvira Rat" class="mw-redirect">Elvira Rat</option>
-            </select>
-
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-6">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-6">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-    </div>
-
-    <hr>
-
-    <footer>
-        <p>&copy; Company 2015</p>
-    </footer>
-</div> <!-- /container -->
-
-
-<script src="js/booba-dropdown.js"></script>
 <script>
-    new DropDown({
-        select: document.getElementById('food-select')
-    });
+  var json2 = [
+    {
+      "label": "Massachusetts",
+      "value": "MA",
+      "region": "East",
+      "selected": "true"
+    },
+    {
+      "label": "Michigan",
+      "value": "MI",
+      "region": "Midwest"
+    },
+    {
+      "label": "Minnesota",
+      "value": "MN",
+      "region": "Midwest"
+    },
+    {
+      "label": "Mississippi",
+      "value": "MS",
+      "region": "South"
+    }
+  ];
+  var json = [
+    {
+      "label": "Alabama",
+      "value": "AL",
+      "region": "South",
+      "selected": true
 
-    new DropDown({
-        select: document.getElementById('food-select-4')
-    });
+    },
+    {
+      "label": "Alaska",
+      "value": "AK",
+      "region": "Pacific",
+      "disabled": true
+    },
+    {
+      "label": "Arizona",
+      "value": "AZ",
+      "region": "West"
+    },
+    {
+      "label": "Arkansas",
+      "value": "AR",
+      "region": "South"
+    },
+    {
+      "label": "California",
+      "value": "CA",
+      "region": "West"
+    },
+    {
+      "label": "Colorado",
+      "value": "CO",
+      "region": "West"
+    },
+    {
+      "label": "Connecticut",
+      "value": "CT",
+      "region": "Northeast"
+    },
+    {
+      "label": "Delaware",
+      "value": "DE",
+      "region": "East"
+    },
+    {
+      "label": "Florida",
+      "value": "FL",
+      "region": "South"
+    },
+    {
+      "label": "Georgia",
+      "value": "GA",
+      "region": "South"
+    },
+    {
+      "label": "Hawaii",
+      "value": "HI",
+      "region": "Pacific"
+    },
+    {
+      "label": "Idaho",
+      "value": "ID",
+      "region": "Northwest"
+    },
+    {
+      "label": "Illinios",
+      "value": "IL",
+      "region": "Midwest"
+    },
+    {
+      "label": "Indiana",
+      "value": "IN",
+      "region": "Midwest"
+    },
+    {
+      "label": "Iowa",
+      "value": "IA",
+      "region": "Midwest"
+    },
+    {
+      "label": "Kansas",
+      "value": "KS",
+      "region": "West"
+    },
+    {
+      "label": "Kentucky",
+      "value": "KY",
+      "region": "Midwest"
+    },
+    {
+      "label": "Louisiana",
+      "value": "LA",
+      "region": "South"
+    },
+    {
+      "label": "Maine",
+      "value": "ME",
+      "region": "North"
+    },
+    {
+      "label": "Maryland",
+      "value": "MD",
+      "region": "East"
+    },
+    {
+      "label": "Massachusetts",
+      "value": "MA",
+      "region": "East"
+    },
+    {
+      "label": "Michigan",
+      "value": "MI",
+      "region": "Midwest"
+    },
+    {
+      "label": "Minnesota",
+      "value": "MN",
+      "region": "Midwest"
+    },
+    {
+      "label": "Mississippi",
+      "value": "MS",
+      "region": "South"
+    },
+    {
+      "label": "Missouri",
+      "value": "MO",
+      "region": "Midwest"
+    },
+    {
+      "label": "Montana",
+      "value": "MT",
+      "region": "West"
+    },
+    {
+      "label": "Nebraska",
+      "value": "NE",
+      "region": "Midwest"
+    },
+    {
+      "label": "Nevada",
+      "value": "NV",
+      "region": "West"
+    },
+    {
+      "label": "New Hampshire",
+      "value": "NH",
+      "region": "Northeast"
+    },
+    {
+      "label": "New Jersey",
+      "value": "NJ",
+      "region": "Northeast"
+    },
+    {
+      "label": "New Mexico",
+      "value": "NM",
+      "region": "Southwest"
+    },
+    {
+      "label": "New York",
+      "value": "NY",
+      "region": "Northeast"
+    },
+    {
+      "label": "North Carolina",
+      "value": "NC",
+      "region": "South"
+    },
+    {
+      "label": "North Dakota",
+      "value": "ND",
+      "region": "Midwest"
+    },
+    {
+      "label": "Ohio",
+      "value": "OH",
+      "region": "Midwest"
+    },
+    {
+      "label": "Oklahoma",
+      "value": "OK",
+      "region": "Midwest"
+    },
+    {
+      "label": "Oregon",
+      "value": "OR",
+      "region": "Northwest"
+    },
+    {
+      "label": "Pennsylvania",
+      "value": "PA",
+      "region": "Northeast"
+    },
+    {
+      "label": "Rhode Island",
+      "value": "RI",
+      "region": "Northeast"
+    },
+    {
+      "label": "South Carolina",
+      "value": "SC",
+      "region": "South"
+    },
+    {
+      "label": "South Dakota",
+      "value": "SD",
+      "region": "Midwest"
+    },
+    {
+      "label": "Tennessee",
+      "value": "TN",
+      "region": "South"
+    },
+    {
+      "label": "Texas",
+      "value": "TX",
+      "region": "South"
+    },
+    {
+      "label": "Utah",
+      "value": "UT",
+      "region": "West"
+    },
+    {
+      "label": "Vermont",
+      "value": "VT"
+    },
+    {
+      "label": "Virginia",
+      "value": "VA",
+      "region": "East"
+    },
+    {
+      "label": "Washington",
+      "value": "WA",
+      "region": "Northwest"
+    },
+    {
+      "label": "West Virginia",
+      "value": "WV",
+      "region": "East"
+    },
+    {
+      "label": "Wisconsin",
+      "value": "WI",
+      "region": "Midwest"
+    },
+    {
+      "label": "Wyoming",
+      "value": "WY",
+      "region": "West"
+    }
+  ];
 </script>
+<h1>Example</h1>
+<p>
+    <button type="button" onclick="vanillaSelect.destroy()">Destroy</button>
+    <button type="button" onclick="vanillaSelect.init()">Init</button>
+    <button type="button" onclick="vanillaSelect.options.jsonData = json2; vanillaSelect.refresh()">Rerender</button>
+    <button type="button" onclick="alert(vanillaSelect.getValue())">Get Value</button>
+</p>
 
+<div id="select-container"></div>
 
+<select id="food-select-4" class="custom-select">
+    <option  value="Nicobar_shrew" title="Nicobar shrew">Nicobar shrew</option>
+    <optgroup label="Group 1">
+        <option  disabled value="Namdapha_flying_squirrel" title="Namdapha flying squirrel">Namdapha flying squirrel</option>
+        <option value="Himalayan_wolf" title="Himalayan wolf">Himalayan wolf</option>
+    </optgroup>
+    <optgroup label="Group 2">
+        <option value="Andaman_Shrew" title="Andaman Shrew" class="mw-redirect">Andaman Shrew</option>
+        <option value="Andaman_Drew" title="Andaman Drew" class="mw-redirect">Andaman Drew</option>
+        <option  value="Jenkins_shrew" title="Jenkins' shrew">Jenkins' shrew</option>
+    </optgroup>
+    <option value="Sumatran_rhinoceros" title="Sumatran rhinoceros">Sumatran rhinoceros</option>
+    <option value="Kondana_soft-furred_rat" title="Kondana soft-furred rat">Kondana soft-furred rat</option>
+    <option value="Pygmy_hog" title="Pygmy hog">Pygmy hog</option> (<i>Porcula salvania</i>)</li>
+    <option value="Javan_rhinoceros" title="Javan rhinoceros">Javan rhinoceros</option>
+    <option value="Malabar_large-spotted_civet" title="Malabar large-spotted civet">Malabar large-spotted civet</option>
+    <option value="Elvira_Rat" title="Elvira Rat" class="mw-redirect">Elvira Rat</option>
+</select>
+
+<script src="js/vanilla-select.js"></script>
+<script>
+  var vanillaSelect = new VanillaSelect({
+    select: document.getElementById('food-select-4'),
+    search: true,
+    jsonData: false,
+    parentContainer: document.getElementById('select-container'),
+    disabled: false,
+    label: 'State',
+    onOpen: function (e) {
+      console.log('On open event ', e);
+    },
+    onClose: function (e) {
+      console.log('On close event ', e);
+    },
+    onInit: function (e) {
+      console.log('On init event ', e);
+    },
+    onDestroy: function (e) {
+      console.log('On destroy event ', e);
+    },
+    onFocus: function (e) {
+      console.log('On focus event', e);
+    },
+    onBlur: function (e) {
+      console.log('On blur event', e);
+    },
+    onRefresh: function (e) {
+      console.log('On refresh event', e);
+    }
+  });
+
+</script>
 
 </body>
 </html>
