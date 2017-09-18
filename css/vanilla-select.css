@@ -9,9 +9,18 @@
     position: relative;
 }
 
+.vanilla-select--disabled .vanilla-select__title,
+.vanilla-select--disabled .vanilla-select__search__label,
+.vanilla-select--disabled .vanilla-select:after,
+.vanilla-select--disabled .search-wrap:after,
+.vanilla-select--disabled .vanilla-select__search {
+    color: #e1e1e1;
+    cursor: default;
+}
+
 .vanilla-select__title {
     height: 100%;
-    border: 2px groove #ADD8E6;
+    border: 1px groove #cccccc;
     background: white;
     width: 100%;
     box-sizing: border-box;

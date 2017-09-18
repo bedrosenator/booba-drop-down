@@ -11,9 +11,12 @@ function VanillaSelect(options) {
     arrow: 'vanilla-select__arrow',
     label: 'vanilla-select__search__label',
     disabledOption: 'vanilla-select__list--disabled',
+    disabledSelect: 'vanilla-select--disabled',
     groupLabel: 'vanilla-select__list--label',
     listItem: 'vanilla-select__list__item'
   };
+  // event listeners
+  this.listeners = {};
 
   //list title
   this.title = document.createElement('input');
@@ -23,12 +26,18 @@ function VanillaSelect(options) {
   this.parent = document.createElement('div');
   //value of selected item
   this.value;
-  this._initListeners();
-  this._initCustomEvents();
+
   this.init();
 }
 
 VanillaSelect.prototype.init = function () {
+  if (!this.listenersInited) {
+    this._initListeners();
+  }
+
+  if (this.options.disabled) {
+    this.disable();
+  }
   // skip init if it was created
   if (this.parent && this.parent.hasChildNodes()) {
     return;
@@ -43,7 +52,18 @@ VanillaSelect.prototype.init = function () {
   this.parent.dispatchEvent(this.onInit);
 };
 
-VanillaSelect.prototype._initCustomEvents = function() {
+VanillaSelect.prototype._initListeners = function () {
+  this.listeners._clikOutside = this._clickOutside.bind(this);
+  document.addEventListener('click', this.listeners._clikOutside);
+  this.listeners._click = this._click.bind(this);
+  this.parent.addEventListener('click', this.listeners._click);
+  this.listeners._keydown = this._keydown.bind(this);
+  this.parent.addEventListener('keydown', this.listeners._keydown);
+  if (this.options.search) {
+    this.listeners._search = this._onSearch.bind(this);
+    this.title.addEventListener('input', this.listeners._search);
+  }
+
   // custom events
   this.onOpen = new CustomEvent('open');
   this.onClose = new CustomEvent('close');
@@ -52,34 +72,44 @@ VanillaSelect.prototype._initCustomEvents = function() {
   this.onRefresh = new CustomEvent('refresh');
 
   if (this.options.onOpen && typeof this.options.onOpen === "function") {
-    this.parent.addEventListener('open', this.options.onOpen.bind(this))
+    this.listeners._open = this.options.onOpen.bind(this);
+    this.parent.addEventListener('open', this.listeners._open);
   }
 
-  if (this.options.onClose  && typeof this.options.onClose === "function") {
-    this.parent.addEventListener('close', this.options.onClose.bind(this))
+  if (this.options.onClose && typeof this.options.onClose === "function") {
+    this.listeners._close = this.options.onClose.bind(this);
+    this.parent.addEventListener('close', this.options.onClose.bind(this), this.listeners._close);
   }
 
   if (this.options.onInit && typeof this.options.onInit == "function") {
-    this.parent.addEventListener('init', this.options.onInit.bind(this));
+    this.listeners._init = this.options.onInit.bind(this);
+    this.parent.addEventListener('init', this.listeners._init);
   }
 
   if (this.options.onDestroy && typeof this.options.onDestroy == "function") {
-    this.parent.addEventListener('destroy', this.options.onDestroy.bind(this));
+    this.listeners._destroy = this.options.onDestroy.bind(this);
+    this.parent.addEventListener('destroy', this.listeners._destroy);
   }
 
   if (this.options.onRefresh && typeof this.options.onRefresh == "function") {
-    this.parent.addEventListener('refresh', this.options.onRefresh.bind(this));
+    this.listeners._refresh = this.options.onRefresh.bind(this);
+    this.parent.addEventListener('refresh', this.listeners._refresh);
   }
-
+  this.listenersInited = true;
 };
 
-VanillaSelect.prototype._initListeners = function () {
-  document.addEventListener('click', this._clickOutside.bind(this));
-  this.parent.addEventListener('click', this._click.bind(this));
-  this.parent.addEventListener('keydown', this._keydown.bind(this));
-  if (this.options.search) {
-    this.title.addEventListener('input', this._onSearch.bind(this));
-  }
+VanillaSelect.prototype.removeListeners = function () {
+  if (this.options.onOpen) this.parent.removeEventListener('open', this.listeners._open);
+  if (this.options.onClose) this.parent.removeEventListener('close', this.listeners._close);
+  if (this.options.onInit) this.parent.removeEventListener('init', this.listeners._init);
+  if (this.options.onDestroy) this.parent.removeEventListener('destroy', this.listeners._destroy);
+  if (this.listeners.onRefresh) this.parent.removeEventListener('refresh', this.listeners._refresh);
+  document.removeEventListener('click', this.listeners._clikOutside);
+  this.parent.removeEventListener('click', this.listeners._click);
+  this.parent.removeEventListener('keydown', this.listeners._keydown);
+  this.parent.removeEventListener('input', this.listeners._search);
+  this.listenersInited = false;
+
 };
 
 VanillaSelect.prototype.getValue = function () {
@@ -87,7 +117,7 @@ VanillaSelect.prototype.getValue = function () {
 };
 
 VanillaSelect.prototype._click = function (e) {
-  if(!this.parent.classList.contains('open')) {
+  if (!this.parent.classList.contains('open')) {
     this.showList(e);
   } else {
     this._setSelectionByClick(e);
@@ -97,8 +127,7 @@ VanillaSelect.prototype._click = function (e) {
 
 VanillaSelect.prototype._clickOutside = function (e) {
   if (this._isClickOutsideList(e)) {
-      console.log('outside');
-      this.hideList();
+    this.hideList();
   }
 };
 
@@ -119,6 +148,7 @@ VanillaSelect.prototype.destroy = function () {
     this.select.style.display = '';
     this.parent.innerHTML = null;
     this.select.removeAttribute('hidden');
+    this.removeListeners();
   }
 };
 
@@ -140,7 +170,7 @@ VanillaSelect.prototype._onSearch = function () {
 
   for (var i = 0; i < liElems.length; i++) {
     if (liElems[i].firstChild.textContent.toLowerCase().indexOf(searchQuery.toLowerCase()) == -1) {
-      nestedElems = [].filter.call(liElems[i].querySelectorAll('li:not([hidden])'), function(elem) {
+      nestedElems = [].filter.call(liElems[i].querySelectorAll('li:not([hidden])'), function (elem) {
         return !elem.hasAttribute('[hidden]');
       });
       if (!nestedElems.length && !liElems[i].hasAttribute('data-label')) {
@@ -156,7 +186,7 @@ VanillaSelect.prototype._onSearch = function () {
 
 VanillaSelect.prototype._shift = function (direction, e) {
   var liElems = this.parent.querySelectorAll('li:not([data-disabled])');
-  liElems = [].filter.call(liElems, function(liElem) {
+  liElems = [].filter.call(liElems, function (liElem) {
     return !liElem.hasAttribute('disabled');
   });
 
@@ -175,16 +205,16 @@ VanillaSelect.prototype._shift = function (direction, e) {
 
 VanillaSelect.prototype._keydown = function (e) {
   //key down 40
-  if(e.keyCode === 40) {
+  if (e.keyCode === 40) {
     this._shift('down', e);
   }
   //key up 38
-  if(e.keyCode === 38) {
+  if (e.keyCode === 38) {
     this._shift('up', e);
   }
   // enter
-  if(e.keyCode === 13) {
-    if(!this.parent.classList.contains('open')) {
+  if (e.keyCode === 13) {
+    if (!this.parent.classList.contains('open')) {
       this.showList(e);
     } else {
       this._setSelectionByKey(e);
@@ -193,7 +223,7 @@ VanillaSelect.prototype._keydown = function (e) {
     }
   }
   // escape
-  if(e.keyCode === 27) {
+  if (e.keyCode === 27) {
     this.hideList(e);
   }
 };
@@ -245,13 +275,24 @@ VanillaSelect.prototype._isClickOutsideList = function (e) {
 
 VanillaSelect.prototype.hideList = function (e) {
   if (this.parent && this.parent.classList.contains('open')) {
-    console.log('hide LIST');
     this.parent.classList.remove('open');
     this.parent.dispatchEvent(this.onClose);
   }
 };
 
-VanillaSelect.prototype._createList = function(select, parent, recursion) {
+VanillaSelect.prototype.disable = function () {
+  this.title.setAttribute('disabled', 'disabled');
+  this.removeListeners();
+  this.parent.classList.add(this.cssClasses.disabledSelect);
+};
+
+VanillaSelect.prototype.enable = function () {
+  this.title.removeAttribute('disabled');
+  this.parent.classList.remove(this.cssClasses.disabledSelect);
+  this._initListeners();
+};
+
+VanillaSelect.prototype._createList = function (select, parent, recursion) {
   var ul = document.createElement('ul');
   var li;
   var textValue;
@@ -273,7 +314,7 @@ VanillaSelect.prototype._createList = function(select, parent, recursion) {
       li.setAttribute('data-disabled', select.children[i].getAttribute('label'));
 
       //insert inner ul
-      li.appendChild( this._createList(select.children[i], parent, true) );
+      li.appendChild(this._createList(select.children[i], parent, true));
       ul.appendChild(li);
     }
 
@@ -288,7 +329,7 @@ VanillaSelect.prototype._createList = function(select, parent, recursion) {
       li.setAttribute('data-disabled', 'disabled');
     }
     if (select.children[i].classList.length) {
-        li.classList.add(select.children[i].classList.value);
+      li.classList.add(select.children[i].classList.value);
     }
     // set selected class
     if (select.children[i].hasAttribute('selected')) {
@@ -345,7 +386,7 @@ VanillaSelect.prototype._fillSelectFromJson = function (jsonData) {
       option.setAttribute('selected', 'selected');
     }
     if (jsonData[i].class) {
-        option.classList.add(jsonData[i].class);
+      option.classList.add(jsonData[i].class);
     }
     this.select.appendChild(option);
   }
