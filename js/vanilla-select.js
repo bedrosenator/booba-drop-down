@@ -98,7 +98,7 @@ VanillaSelect.prototype._initListeners = function () {
   this.listenersInited = true;
 };
 
-VanillaSelect.prototype.removeListeners = function () {
+VanillaSelect.prototype._removeListeners = function () {
   if (this.options.onOpen) this.parent.removeEventListener('open', this.listeners._open);
   if (this.options.onClose) this.parent.removeEventListener('close', this.listeners._close);
   if (this.options.onInit) this.parent.removeEventListener('init', this.listeners._init);
