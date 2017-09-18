@@ -140,7 +140,7 @@
     color: #999;
     padding: 13px 6px 0 6px;
 }
-.vanilla-select__search:focus + .vanilla-select__search__label,
+.vanilla-select.open .vanilla-select__search__label,
 .vanilla-select__search--touched .vanilla-select__search__label {
     font-size: 75%;
     top: -25%;

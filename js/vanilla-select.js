@@ -28,8 +28,6 @@ function VanillaSelect(options) {
   this.init();
 }
 
-
-
 VanillaSelect.prototype.init = function () {
   // skip init if it was created
   if (this.parent && this.parent.hasChildNodes()) {
@@ -76,7 +74,6 @@ VanillaSelect.prototype._initCustomEvents = function() {
 };
 
 VanillaSelect.prototype._initListeners = function () {
-  this.parent.addEventListener('click', this._setSelectionByClick.bind(this));
   document.addEventListener('click', this._clickOutside.bind(this));
   this.parent.addEventListener('click', this._click.bind(this));
   this.parent.addEventListener('keydown', this._keydown.bind(this));
@@ -93,13 +90,15 @@ VanillaSelect.prototype._click = function (e) {
   if(!this.parent.classList.contains('open')) {
     this.showList(e);
   } else {
+    this._setSelectionByClick(e);
     if (!e.target.hasAttribute('data-disabled')) this.hideList(e);
   }
 };
 
 VanillaSelect.prototype._clickOutside = function (e) {
   if (this._isClickOutsideList(e)) {
-    this.hideList();
+      console.log('outside');
+      this.hideList();
   }
 };
 
@@ -175,7 +174,6 @@ VanillaSelect.prototype._shift = function (direction, e) {
 };
 
 VanillaSelect.prototype._keydown = function (e) {
-  this._setLabelPosition();
   //key down 40
   if(e.keyCode === 40) {
     this._shift('down', e);
@@ -247,6 +245,7 @@ VanillaSelect.prototype._isClickOutsideList = function (e) {
 
 VanillaSelect.prototype.hideList = function (e) {
   if (this.parent && this.parent.classList.contains('open')) {
+    console.log('hide LIST');
     this.parent.classList.remove('open');
     this.parent.dispatchEvent(this.onClose);
   }
@@ -287,6 +286,9 @@ VanillaSelect.prototype._createList = function(select, parent, recursion) {
     if (select.children[i].hasAttribute('disabled')) {
       li.classList.add(this.cssClasses.disabledOption);
       li.setAttribute('data-disabled', 'disabled');
+    }
+    if (select.children[i].classList.length) {
+        li.classList.add(select.children[i].classList.value);
     }
     // set selected class
     if (select.children[i].hasAttribute('selected')) {
@@ -341,6 +343,9 @@ VanillaSelect.prototype._fillSelectFromJson = function (jsonData) {
     }
     if (jsonData[i].selected) {
       option.setAttribute('selected', 'selected');
+    }
+    if (jsonData[i].class) {
+        option.classList.add(jsonData[i].class);
     }
     this.select.appendChild(option);
   }

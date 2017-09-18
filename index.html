@@ -7,13 +7,20 @@
 </head>
 <body>
 
+<style>
+    .red {
+        color: red;
+    }
+</style>
+
 <script>
   var json2 = [
     {
       "label": "Massachusetts",
       "value": "MA",
       "region": "East",
-      "selected": "true"
+      "selected": "true",
+      "class": "red"
     },
     {
       "label": "Michigan",
@@ -36,7 +43,8 @@
       "label": "Alabama",
       "value": "AL",
       "region": "South",
-      "selected": true
+      "selected": true,
+      "class": "red"
 
     },
     {
@@ -297,7 +305,7 @@
 <div id="select-container"></div>
 
 <select id="food-select-4" class="custom-select">
-    <option  value="Nicobar_shrew" title="Nicobar shrew">Nicobar shrew</option>
+    <option class="red" value="Nicobar_shrew" title="Nicobar shrew">Nicobar shrew</option>
     <optgroup label="Group 1">
         <option  disabled value="Namdapha_flying_squirrel" title="Namdapha flying squirrel">Namdapha flying squirrel</option>
         <option value="Himalayan_wolf" title="Himalayan wolf">Himalayan wolf</option>
